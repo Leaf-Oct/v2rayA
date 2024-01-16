@@ -1,6 +1,12 @@
+原项目地址：https://github.com/v2rayA/v2rayA
+
+在爷电脑上(Ubuntu)，我在webGUI中启动了v2rayA，我还得在系统设置(gnome-control-center)中将"网络代理"设置为"手动"。当我断开代理时，还得手动将"网络代理"设置为"无"。这意味着我得两步走才能科学上网: 首先启动v2ray，然后设置系统代理。
+
+我能不能一步到位? 毕竟设置系统代理又不需要更高权限。所以我尝试在`service/server/controller/connection.go`中加了几行代码，这些代码的功能是在启动和结束v2ray服务时，执行"gsettings"指令该更改系统代理设置。
+
 # v2rayA [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/v2rayA/v2raya)](https://hub.docker.com/r/mzz2017/v2raya) [![Travis (.org)](https://img.shields.io/travis/v2rayA/v2rayA?label=travis-ci%20build)](https://travis-ci.org/v2rayA/v2rayA)
 
-[**English**](https://github.com/v2rayA/v2rayA/blob/main/README.md)&nbsp;&nbsp;&nbsp;[**简体中文**](https://github.com/v2rayA/v2rayA/blob/main/README_zh.md)
+[**English**](https://github.com/Leaf-Oct/v2rayA/blob/master/README.md)&nbsp;&nbsp;&nbsp;[**简体中文**](https://github.com/Leaf-Oct/v2rayA/blob/master/README_zh.md)
 
 v2rayA 是一个支持全局透明代理的 V2Ray 客户端，同时兼容 SS、SSR、Trojan(trojan-go)、Tuic 与 [Juicity](https://github.com/juicity)协议。 [[SSR支持清单]](https://github.com/v2rayA/dist/shadowsocksR/blob/master/README.md#ss-encrypting-algorithm)
 

@@ -7,6 +7,8 @@ import (
 	"github.com/v2rayA/v2rayA/db/configure"
 	"github.com/v2rayA/v2rayA/pkg/util/log"
 	"github.com/v2rayA/v2rayA/server/service"
+	"os/exec"
+	"runtime"
 )
 
 func PostConnection(ctx *gin.Context) {
@@ -88,6 +90,14 @@ func PostV2ray(ctx *gin.Context) {
 		common.ResponseError(ctx, logError(fmt.Errorf("failed to start v2ray-core: %w", err)))
 		return
 	}
+	// 判断当前系统，如果是linux，则通过下面那个指令打开设置里的系统代理(貌似仅限gnome桌面环境，如果不是gnome的话，根本没有这个指令，执行了也无妨)
+	if runtime.GOOS == "linux" {
+		cmd := exec.Command("gsettings", "set", "org.gnome.system.proxy", "mode", "manual")
+		err := cmd.Run()
+		if err != nil {
+			log.Warn("cmd.Run() failed with %s\n", err)
+		}
+	}
 	getTouch(ctx)
 }
 
@@ -110,6 +120,14 @@ func DeleteV2ray(ctx *gin.Context) {
 	if err != nil {
 		common.ResponseError(ctx, logError(fmt.Errorf("failed to stop v2ray-core: %w", err)))
 		return
+	}
+	// 判断当前系统，如果是linux，则通过下面那个指令关闭设置里的系统代理(貌似仅限gnome桌面环境，如果不是gnome的话，根本没有这个指令，执行了也无妨)
+	if runtime.GOOS == "linux" {
+		cmd := exec.Command("gsettings", "set", "org.gnome.system.proxy", "mode", "none")
+		err := cmd.Run()
+		if err != nil {
+			log.Warn("cmd.Run() failed with %s\n", err)
+		}
 	}
 	getTouch(ctx)
 }

@@ -1,6 +1,12 @@
+Original project: https://github.com/v2rayA/v2rayA
+
+In my PC (Ubuntu)，once I run v2rayA in webGUI, I still need to set "Network Proxy"(in gnome-control-center) to "manual"。And need to set it to "none" manually when I disconnect proxy in webGUI. This means that I need two steps to visit google successfully, first run v2ray, then set system proxy in setting-panel.
+
+Can I do them in one step? Set system proxy doesn't need higher permission. So I try adding some code in `service/server/controller/connection.go`，which will execute "gsettings" command to change system proxy settings when turn on or off v2ray service.
+
 # v2rayA [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/v2rayA/v2raya)](https://hub.docker.com/r/mzz2017/v2raya) [![Travis (.org)](https://img.shields.io/travis/v2rayA/v2rayA?label=travis-ci%20build)](https://travis-ci.org/v2rayA/v2rayA)
 
-[**English**](https://github.com/v2rayA/v2rayA/blob/main/README.md)&nbsp;&nbsp;&nbsp;[**简体中文**](https://github.com/v2rayA/v2rayA/blob/main/README_zh.md)
+[**English**](https://github.com/Leaf-Oct/v2rayA/blob/master/README.md)&nbsp;&nbsp;&nbsp;[**简体中文**](https://github.com/Leaf-Oct/v2rayA/blob/master/README_zh.md)
 
 v2rayA is a V2Ray client supporting global transparent proxy on Linux and system proxy on Windows and macOS, it is compatible with SS, SSR, Trojan(trojan-go), Tuic and [Juicity](https://github.com/juicity) protocols. [[SSR protocol list]](https://github.com/v2rayA/shadowsocksR/blob/main/README.md#ss-encrypting-algorithm)
 
